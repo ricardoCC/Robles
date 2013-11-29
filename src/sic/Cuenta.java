@@ -14,6 +14,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import DBAdmon.Coneccion;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Cuenta extends javax.swing.JFrame {
@@ -255,7 +257,7 @@ public class Cuenta extends javax.swing.JFrame {
             cnx.conectar();
             URL in=getClass().getResource( "/Reportes/CatalogoDeCuentas.jasper" );  
             URL logo = getClass().getResource("/imagenes/LOGOSIC.V.png");
-            JOptionPane.showMessageDialog(null, logo);
+            //JOptionPane.showMessageDialog(null, logo);
             System.out.println("master" + in);
             if (in== null) 
             {                
@@ -272,6 +274,8 @@ public class Cuenta extends javax.swing.JFrame {
                 System.out.println("Error cargando el reporte maestro: " + e.getMessage());
                 cnx.conn.close();                
             }          
+             Map<String,Object> parametro = new HashMap<>();                  
+             parametro.put("img", logo);             
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,null,cnx.conn);
             JasperViewer jviewer = new JasperViewer(jasperPrint,false);
             jviewer.setVisible(true);          
