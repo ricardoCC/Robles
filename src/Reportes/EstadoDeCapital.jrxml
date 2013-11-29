@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstadoDeCapital" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6240a99d-0378-4dee-bbba-71de21decc9a">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[CALL mayorizacion(2);]]>
+	</queryString>
+	<field name="NOMBRECUENTA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CARGOABONO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="CARGOABONO_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CARGOABONO}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<image>
+				<reportElement x="499" y="0" width="62" height="50" uuid="7455490d-788c-4267-8acc-7af914428179"/>
+			</image>
+			<staticText>
+				<reportElement x="284" y="20" width="215" height="30" uuid="3d230bb0-180d-4446-8ff3-eb571233dc5c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[BALANCE GENERAL]]></text>
+			</staticText>
+			<textField pattern="HH.mm">
+				<reportElement x="110" y="84" width="100" height="20" uuid="34748477-f171-4b25-acaa-596fa8426d73"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="64" width="100" height="20" uuid="35346eb6-d56b-44b0-b017-f078e66b0f15"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="84" width="100" height="20" uuid="69187dbf-e8e5-4379-b230-6e645fbc5255"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="39" width="242" height="11" uuid="b9f2fb64-e0e7-4503-bb91-8c18fc6c47d6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Asociación Cooperativa de Transporte de Cojutepeque de Responsabilidad Limitada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="265" height="29" uuid="f4098770-7d3a-45a3-90e4-3ae510ed72c7"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[ACOTRANSCO DE R.L]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="110" y="64" width="100" height="20" uuid="fe8330e6-85dd-4eec-bb42-5d9942a155de"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="48" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="72" y="0" width="100" height="20" uuid="c08a5870-57ff-4f4c-acad-450aec0dec75"/>
+				<textFieldExpression><![CDATA[$F{NOMBRECUENTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="0" width="100" height="20" uuid="89dae873-7c60-4185-a1b9-2e080ccb8a65"/>
+				<textFieldExpression><![CDATA[$F{CARGOABONO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="8" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="284" y="10" width="100" height="20" uuid="ea52b5b6-dbea-4227-a9c1-75ae8e62367e"/>
+				<textFieldExpression><![CDATA[$V{CARGOABONO_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
