@@ -388,6 +388,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         // TODO add your handling code here:
+        config cf = new config();
+        cf.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnBoletaTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBoletaTrabajoActionPerformed
