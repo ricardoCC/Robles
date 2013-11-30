@@ -18,7 +18,7 @@ public class Coneccion {
     
     static String db = "sicdb";
     static String login = "root";
-    static String password = "root";
+    static String password = "";
     static String url = "jdbc:mysql://localhost/"+db;
     
     public Connection conn = null;
