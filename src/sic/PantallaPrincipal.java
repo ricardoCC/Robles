@@ -1,6 +1,7 @@
 
 package sic;
 
+import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 
 
@@ -12,7 +13,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         Fecha hilo;
         hilo = new Fecha(LabelFecha);
         hilo.start();
-        
+        Fondo fp = new Fondo();
+        this.add(fp, BorderLayout.CENTER);
+        this.pack();
     }
     
         
