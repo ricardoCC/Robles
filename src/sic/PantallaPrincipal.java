@@ -410,6 +410,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnEECapitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEECapitalActionPerformed
         // TODO add your handling code here:
         ShowReport("EstadoDeCapital.jasper");
+        
+        
     }//GEN-LAST:event_btnEECapitalActionPerformed
 
     private void btnBGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBGeneralActionPerformed
