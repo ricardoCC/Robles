@@ -37,6 +37,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         tPrimerNombre = new javax.swing.JTextField();
         tPrimerApellido = new javax.swing.JTextField();
+        tFechaNac = new javax.swing.JTextField();
         tDui = new javax.swing.JTextField();
         tNIT = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -49,7 +50,6 @@ public class Empleado extends javax.swing.JFrame {
         tAFP = new javax.swing.JTextField();
         tSegundoNombre = new javax.swing.JTextField();
         tSegundoApellido = new javax.swing.JTextField();
-        tFechaNac = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tCodEmpleado = new javax.swing.JTextField();
@@ -123,8 +123,6 @@ public class Empleado extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jLabel16.setText("AFP");
 
-        tFechaNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -171,9 +169,10 @@ public class Empleado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                                        .addComponent(tFechaNac, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(tEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +210,7 @@ public class Empleado extends javax.swing.JFrame {
                     .addComponent(tIsss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(tAFP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -306,7 +305,7 @@ public class Empleado extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(tFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos del Rol", jPanel4);
@@ -390,11 +389,11 @@ public class Empleado extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(btnMostrarTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -421,11 +420,11 @@ public class Empleado extends javax.swing.JFrame {
         String asdf = "'null'";
         String sql = "call set_empleado ( '" + tPrimerNombre.getText() + "','" + tSegundoNombre.getText()
            + "','" + tPrimerApellido.getText() + "','" + tSegundoApellido.getText() + "', " + asdf
-           + ", " + tFechaNac.getText() + ", '" + tDui.getText() + "', '" + tNIT.getText() + "' , '"
+           + ", '" + tFechaNac.getText() + "', '" + tDui.getText() + "', '" + tNIT.getText() + "' , '"
            + tIsss.getText() + "','" + txtADireccion.getText() + "' , " + tTelefono.getText() + ", '"
            + tCargo.getText() + "','" + tAFP.getText() + "'," + asdf + ", '" 
            + this.comboTiempoCompleto.getSelectedItem().toString() + "', '" + tFechadeEntrada.getText()
-           + "','" + tFechaSalida.getText() + "','" + tEmail.getText() + "',"+ asdf +  ","+ asdf + ")";
+           + "','" + tFechaSalida.getText() + "','" + tEmail.getText() + "')";
         System.out.println(sql);
         FrameDBManager f = new FrameDBManager();
         f.FramepushDB(sql);
@@ -528,7 +527,7 @@ public class Empleado extends javax.swing.JFrame {
     private javax.swing.JTextField tCodEmpleado;
     private javax.swing.JTextField tDui;
     private javax.swing.JTextField tEmail;
-    private javax.swing.JFormattedTextField tFechaNac;
+    private javax.swing.JTextField tFechaNac;
     private javax.swing.JTextField tFechaSalida;
     private javax.swing.JTextField tFechadeEntrada;
     private javax.swing.JTextField tIsss;

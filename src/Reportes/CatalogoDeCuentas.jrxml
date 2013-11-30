@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.4641000000000017"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="img" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      catalogo.`CODIGOCUENTA` AS catalogo_CODIGOCUENTA,
@@ -25,7 +26,7 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="17" y="0" width="99" height="79" uuid="de06e2bc-d06c-4c8f-a6c0-3cdcf53bbacb"/>
-				<imageExpression><![CDATA["C:\\Users\\rcsix_000\\Pictures\\LOGOSIC.V.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
 			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="425" y="0" width="100" height="20" uuid="ad864fae-6a09-45f0-93a9-5312976c6f96"/>
