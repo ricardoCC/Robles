@@ -62,8 +62,8 @@ public class FrameDBManager {
         try {
             ps = con.conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            JOptionPane.showMessageDialog(null, "Insercion realizada "
-                    + "correctamente");
+            JOptionPane.showMessageDialog(null, "Operacion realizada "
+                    + "exitosamente");
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }

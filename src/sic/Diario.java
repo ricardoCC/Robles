@@ -11,6 +11,7 @@ import javax.swing.table.TableColumn;
 public class Diario extends javax.swing.JFrame {
     DefaultTableModel modelo;
     TableColumn columna;
+    public static String cod;
     
     void limpiar(){
         this.tDetalleCuenta.setText(null);
@@ -109,11 +110,14 @@ public class Diario extends javax.swing.JFrame {
         jTextArea1.setMinimumSize(new java.awt.Dimension(1, 1));
         jScrollPane1.setViewportView(jTextArea1);
 
+        tNCuenta.setEditable(false);
         tNCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tNCuentaActionPerformed(evt);
             }
         });
+
+        tDetalleCuenta.setEditable(false);
 
         comboCargoAbono.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cargo", "Abono" }));
         comboCargoAbono.addActionListener(new java.awt.event.ActionListener() {
@@ -123,6 +127,11 @@ public class Diario extends javax.swing.JFrame {
         });
 
         btnCatalogo.setText("Catalogo");
+        btnCatalogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatalogoActionPerformed(evt);
+            }
+        });
 
         tblDiario.setBackground(new java.awt.Color(240, 240, 240));
         tblDiario.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
@@ -187,6 +196,8 @@ public class Diario extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
+
+        tValor.setEditable(false);
 
         btnOk.setBackground(new java.awt.Color(204, 255, 204));
         btnOk.setFont(new java.awt.Font("Gill Sans MT", 1, 11)); // NOI18N
@@ -407,8 +418,17 @@ public class Diario extends javax.swing.JFrame {
             System.out.println(correlativo);
 
             this.tNPartida.setText(correlativo);
+            this.tDetalleCuenta.setEditable(true);
+            this.tNPartida.setEditable(true);
+            this.tValor.setEditable(true);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatalogoActionPerformed
+        // TODO add your handling code here:
+        buscarCuenta bcta = new buscarCuenta();
+        bcta.setVisible(true);
+    }//GEN-LAST:event_btnCatalogoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -462,7 +482,7 @@ public class Diario extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField tDetalleCuenta;
     private javax.swing.JTextField tFecha;
-    private javax.swing.JTextField tNCuenta;
+    public static javax.swing.JTextField tNCuenta;
     private javax.swing.JTextField tNPartida;
     private javax.swing.JTextField tValor;
     private javax.swing.JTable tblDiario;

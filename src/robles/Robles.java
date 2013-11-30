@@ -4,6 +4,8 @@
  */
 package robles;
 
+import sic.Login;
+
 /**
  *
  * @author Wilfredo
@@ -15,5 +17,7 @@ public class Robles {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Login log = new Login();
+        log.setVisible(true);
     }
 }
