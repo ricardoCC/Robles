@@ -3,7 +3,18 @@ package sic;
 
 import DBAdmon.FrameDBManager;
 import java.awt.BorderLayout;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import DBAdmon.Coneccion;
+import javax.swing.JOptionPane;
 
 public class Cuenta extends javax.swing.JFrame {
     private boolean edit = false;
@@ -55,6 +66,11 @@ public class Cuenta extends javax.swing.JFrame {
         jButton1.setText("Listar Catalogo");
         jButton1.setBorder(new javax.swing.border.MatteBorder(null));
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
         btnNuevo.setBorder(null);
@@ -94,6 +110,11 @@ public class Cuenta extends javax.swing.JFrame {
 
         btnMostrarTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/book_open.png"))); // NOI18N
         btnMostrarTabla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMostrarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTablaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jLabel8.setText("Descripción Cuenta");
@@ -219,6 +240,48 @@ public class Cuenta extends javax.swing.JFrame {
         edit = true;
         limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnMostrarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTablaActionPerformed
+        // TODO add your handling code here:
+        try
+        {        
+            Coneccion cnx = new Coneccion();
+            cnx.conectar();
+            URL in=getClass().getResource( "/Reportes/CatalogoDeCuentas.jasper" );  
+            URL logo = getClass().getResource("/imagenes/LOGOSIC.V.png");
+            JOptionPane.showMessageDialog(null, logo);
+            System.out.println("master" + in);
+            if (in== null) 
+            {                
+                System.out.println("No encuentro el archivo del reporte maestro.");
+                //System.exit(2);
+            } 
+            JasperReport masterReport = null;
+            try 
+            {
+                masterReport = (JasperReport) JRLoader.loadObject(in);
+            } 
+            catch (JRException e) 
+            {
+                System.out.println("Error cargando el reporte maestro: " + e.getMessage());
+                cnx.conn.close();                
+            }          
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,null,cnx.conn);
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setVisible(true);          
+        }
+            catch (Exception j)
+        {
+               Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Mensaje crítico...",j);
+            System.out.println("Mensaje de Error:"+j.getMessage());
+        }
+    }//GEN-LAST:event_btnMostrarTablaActionPerformed
 
     /**
      * @param args the command line arguments

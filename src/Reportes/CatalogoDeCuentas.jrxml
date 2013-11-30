@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c7ce80e-b274-486f-b33c-c66ec778c15d">
+	<property name="ireport.zoom" value="1.4641000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     catalogo.`CODIGOCUENTA` AS catalogo_CODIGOCUENTA,
+     catalogo.`NOMBRECUENTA` AS catalogo_NOMBRECUENTA,
+     catalogo.`DESCRIPCIONCUENTA` AS catalogo_DESCRIPCIONCUENTA
+FROM
+     `catalogo` catalogo]]>
+	</queryString>
+	<field name="catalogo_CODIGOCUENTA" class="java.lang.String"/>
+	<field name="catalogo_NOMBRECUENTA" class="java.lang.String"/>
+	<field name="catalogo_DESCRIPCIONCUENTA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="215" y="15" width="143" height="20" uuid="0754aee6-a9b1-4fd8-a483-beacf8edd610"/>
+				<text><![CDATA[CATALOGO DE CUENTAS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="17" y="0" width="99" height="79" uuid="de06e2bc-d06c-4c8f-a6c0-3cdcf53bbacb"/>
+				<imageExpression><![CDATA["C:\\Users\\rcsix_000\\Pictures\\LOGOSIC.V.png"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="425" y="0" width="100" height="20" uuid="ad864fae-6a09-45f0-93a9-5312976c6f96"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="525" y="0" width="100" height="20" uuid="b0681d01-1a91-4628-8daa-fd9c0ad91dcb"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="197" y="5" width="198" height="20" uuid="5b28c43e-235d-45b4-8dce-61df15e1e704"/>
+				<textElement>
+					<font fontName="Century" size="12"/>
+				</textElement>
+				<text><![CDATA[Muebleria ROBLES S.A. de C.V. ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="412" y="16" width="100" height="20" uuid="8d38fbbb-eeff-4f1e-9a14-e5d88455bae5"/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="16" width="101" height="20" uuid="94d793aa-0402-469f-a281-2730e7b3cde5"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="16" width="110" height="20" uuid="da28883e-f26e-432b-865d-22f0688ca393"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="0" width="110" height="21" uuid="c3ca7ab5-bb6d-41d2-a632-0253cf48f5e6"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{catalogo_CODIGOCUENTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="0" width="258" height="21" uuid="f6e0df7a-8e38-4b7d-99e1-f4fad248f8e4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{catalogo_NOMBRECUENTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="0" width="150" height="21" uuid="9b308c02-352a-4410-915d-c5d7988a09b2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{catalogo_DESCRIPCIONCUENTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="472" y="17" width="100" height="20" uuid="3246147a-ed1b-4dd5-835e-19694bfc7e36"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -9,7 +9,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public PantallaPrincipal() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/admin.png")).getImage());
-        Fecha hilo = new Fecha(LabelFecha);
+        Fecha hilo;
+        hilo = new Fecha(LabelFecha);
         hilo.start();
         
     }
