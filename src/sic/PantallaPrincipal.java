@@ -10,12 +10,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public PantallaPrincipal() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/admin.png")).getImage());
+        
+        Fondo f = new Fondo();
+        this.add(f, BorderLayout.CENTER);
+        this.pack();
         Fecha hilo;
         hilo = new Fecha(LabelFecha);
         hilo.start();
-        Fondo fp = new Fondo();
-        this.add(fp, BorderLayout.CENTER);
-        this.pack();
     }
     
         
