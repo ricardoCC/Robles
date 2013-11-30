@@ -1,8 +1,23 @@
 
 package sic;
 
+
 import java.awt.BorderLayout;
+
+import DBAdmon.Coneccion;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class PantallaPrincipal extends javax.swing.JFrame {
@@ -17,6 +32,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         Fecha hilo;
         hilo = new Fecha(LabelFecha);
         hilo.start();
+        
+
     }
     
         
@@ -270,6 +287,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnEECapital.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenespp/estadocapital48.png"))); // NOI18N
         btnEECapital.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenespp/estadocapital64.png"))); // NOI18N
         btnEECapital.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEECapital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEECapitalActionPerformed(evt);
+            }
+        });
         btnEECapital.setBounds(450, 500, 190, 110);
         jDesktopPane1.add(btnEECapital, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -284,6 +306,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnBGeneral.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenespp/balancegeneral48.png"))); // NOI18N
         btnBGeneral.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenespp/balancegeneral64.png"))); // NOI18N
         btnBGeneral.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBGeneralActionPerformed(evt);
+            }
+        });
         btnBGeneral.setBounds(760, 510, 190, 100);
         jDesktopPane1.add(btnBGeneral, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -380,6 +407,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         bt.setVisible(true);
     }//GEN-LAST:event_btnBoletaTrabajoActionPerformed
 
+    private void btnEECapitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEECapitalActionPerformed
+        // TODO add your handling code here:
+        ShowReport("EstadoDeCapital.jasper");
+    }//GEN-LAST:event_btnEECapitalActionPerformed
+
+    private void btnBGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBGeneralActionPerformed
+        // TODO add your handling code here:
+        ShowReport("BalanceGeneral.jasper");
+    }//GEN-LAST:event_btnBGeneralActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -435,4 +472,45 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+
+    private void ShowReport(String nombre){
+        try
+        {        
+            Coneccion cnx = new Coneccion();
+            cnx.conectar();
+            //URL in=getClass().getResource( "/Reportes/CatalogoDeCuentas.jasper" );  
+            URL in=getClass().getResource( "/Reportes/" + nombre );  
+            URL logo = getClass().getResource("/imagenes/LOGOSIC.V.png");
+            //JOptionPane.showMessageDialog(null, logo);
+            System.out.println("master" + in);
+            if (in== null) 
+            {                
+                System.out.println("No encuentro el archivo del reporte maestro.");
+                //System.exit(2);
+            } 
+            JasperReport masterReport = null;
+            try 
+            {
+                masterReport = (JasperReport) JRLoader.loadObject(in);
+            } 
+            catch (JRException e) 
+            {
+                System.out.println("Error cargando el reporte maestro: " + e.getMessage());
+                cnx.conn.close();                
+            }          
+             Map<String,Object> parametro = new HashMap<>();                  
+             parametro.put("img", logo);             
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,parametro,cnx.conn);
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setVisible(true);          
+        }
+            catch (Exception j)
+        {
+               Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Mensaje crítico...",j);
+            System.out.println("Mensaje de Error:"+j.getMessage());
+        }
+    }
+
+
 }

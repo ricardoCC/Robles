@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BalanceGeneral" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="562cf163-97d5-42cb-a83f-5824ee06c4f0">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="img" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[CALL `sicdb`.`mayorizacion_cod`(1);]]>
+	</queryString>
+	<field name="tbl_cuenta_CODIGOCUENTA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRECUENTA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CARGOABONO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="CARGOABONO_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{CARGOABONO}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement x="230" y="44" width="121" height="26" uuid="32fd79eb-c26a-41eb-8321-fe6e78bd7abd"/>
+				<textElement textAlignment="Justified">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Estado de Capital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="21" width="198" height="20" uuid="b37bfc74-73e0-4ccd-a829-0b16b9826243"/>
+				<textElement>
+					<font fontName="Century" size="12"/>
+				</textElement>
+				<text><![CDATA[Muebleria ROBLES S.A. de C.V. ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="260" y="74" width="100" height="20" uuid="4b5b4444-490f-49d1-ba71-731acfb62740"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement x="26" y="2" width="100" height="20" uuid="fa8e0e0b-e00f-4ffd-8cde-a22a71489d3d"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="2" width="21" height="20" uuid="bd86f337-f3e6-45c3-91e3-ec8c4c351b69"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="483" y="2" width="88" height="94" uuid="332fa2a1-614d-426c-a77c-9f7f2320ff20"/>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="234" y="74" width="26" height="20" uuid="706f9c64-bc02-4db1-84c9-5fc73786c863"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="2" width="100" height="20" uuid="24092103-f0e5-4818-b120-9c77758e2049"/>
+				<text><![CDATA[Codigo_Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="2" width="100" height="20" uuid="a130e893-531c-446c-be02-ba0a86f32132"/>
+				<text><![CDATA[NOMBRECUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="2" width="100" height="20" uuid="36a26281-3148-4781-838b-27e46e365513"/>
+				<text><![CDATA[CARGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="2" width="100" height="20" uuid="d6ecec94-7436-45c3-8f62-19f49e8b2cc3"/>
+				<text><![CDATA[ABONO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="4" width="100" height="20" uuid="f0e9c92e-0613-40af-9507-25e71a182b32"/>
+				<textFieldExpression><![CDATA[$F{tbl_cuenta_CODIGOCUENTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="4" width="198" height="20" uuid="1607b1c1-1cf9-4153-91ca-5aea534c8747"/>
+				<textFieldExpression><![CDATA[$F{NOMBRECUENTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="4" width="100" height="20" uuid="251fca0f-bd6f-4146-828e-686ab6e45935"/>
+				<textFieldExpression><![CDATA[$F{CARGOABONO} < 0? $F{CARGOABONO} : '']]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="4" width="100" height="20" uuid="57e53cc1-2e0f-4986-a207-dbdd6ab89a78"/>
+				<textFieldExpression><![CDATA[$F{CARGOABONO} >= 0? $F{CARGOABONO} : '']]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="6" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="351" y="5" width="100" height="20" uuid="e560dd5c-607d-468b-8819-363b3aaafcf6"/>
+				<textFieldExpression><![CDATA[$V{CARGOABONO_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
