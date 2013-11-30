@@ -209,7 +209,8 @@ public class Diario extends javax.swing.JFrame {
             }
         });
 
-        tFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        tFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        tFecha.setToolTipText("yyyy-MM-dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,11 +348,11 @@ public class Diario extends javax.swing.JFrame {
             for (int i = 0; i <= filas; i++) {
                 valor = Double.parseDouble(this.tblDiario.getValueAt(i, 2).toString());
                 deudor = deudor + valor;
-                //System.out.println("deudor: "+ deudor);
+                System.out.println("deudor: "+ deudor);
 
                 valor = Double.parseDouble(this.tblDiario.getValueAt(i, 3).toString());
                 acreedor = acreedor + valor;
-                //System.out.println("acreedor: "+ acreedor);
+                System.out.println("acreedor: "+ acreedor);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -386,10 +387,12 @@ public class Diario extends javax.swing.JFrame {
     if( "Cargo".equals(seleccion)){
         Datos[2]=tValor.getText();
         tValor.setText(null);
+        Datos[3] = "0.0";
        }else
     {
         Datos[3]=tValor.getText();
         tValor.setText(null);
+        Datos[2]= "0.0";
     }
            
     modelo.addRow(Datos);
@@ -411,6 +414,20 @@ public class Diario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Para generar una nueva partida necesita completar "
                     + "los campos fecha y concepto");
         }else{
+            try {
+                DefaultTableModel model = (DefaultTableModel)this.tblDiario.getModel();
+                int filas = model.getRowCount();
+                filas = filas - 1;
+
+                for (int i = 0; i <= filas; i++) {
+                    model.removeRow(0);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            
+            
+            
             String sql = "call set_partida("+ this.tFecha.getText()+ ", '"+ this.jTextArea1.getText()+"');";
             FrameDBManager f = new FrameDBManager();
             f.FramepushDB(sql);
