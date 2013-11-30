@@ -1,10 +1,12 @@
 
 package sic;
 
+import DBAdmon.FrameDBManager;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 
 public class Cuenta extends javax.swing.JFrame {
+    private boolean edit = false;
 
     public Cuenta() {
         initComponents();
@@ -67,6 +69,11 @@ public class Cuenta extends javax.swing.JFrame {
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit24.png"))); // NOI18N
         btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/delete.png"))); // NOI18N
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -174,6 +181,30 @@ public class Cuenta extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String sql = " ";
+        FrameDBManager f = new FrameDBManager();
+        
+        if(!edit){
+            try{
+                sql = "call  set_cuenta('"+this.tCodigoCuenta.getText()+"', '"
+                + this.tNombreCuenta.getText()+ "','"+ this.jTextArea1.getText() +"')";
+                System.out.println(sql);
+                }catch(Exception e){
+                    System.out.println("Error: " + e);
+                }
+                f.FramepushDB(sql);
+        }else{
+           try{
+                sql = "call  alter_cuenta('"+this.tCodigoCuenta.getText()+"', '"
+                + this.tNombreCuenta.getText()+ "','"+ this.jTextArea1.getText() +"')";
+                System.out.println(sql);
+            }catch(Exception e){
+                    System.out.println("Error: " + e);
+                }
+           f.FramepushDB(sql);
+           edit = false;
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -189,6 +220,12 @@ public class Cuenta extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.limpiar();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        edit = true;
+        limpiar();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,11 +1,12 @@
 
 package sic;
 
+import DBAdmon.FrameDBManager;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 public class Puestos extends javax.swing.JFrame {
+    private boolean edit = false;
 
         public Puestos() {
         initComponents();
@@ -26,17 +27,17 @@ public class Puestos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tIdPuesto = new javax.swing.JTextField();
-        ComboDepartamento = new javax.swing.JComboBox();
+        comboDepto = new javax.swing.JComboBox();
         tNombrePuesto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tDescrip = new javax.swing.JTextArea();
         btnNuevo = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        tSueldo = new javax.swing.JTextField();
+        tSalario = new javax.swing.JTextField();
         btnMostrarTabla = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -58,19 +59,29 @@ public class Puestos extends javax.swing.JFrame {
 
         tIdPuesto.setEditable(false);
 
-        ComboDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administración", "Ventas", "Mantenimiento", "Produccion" }));
+        comboDepto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administración", "Ventas", "Mantenimiento", "Produccion" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        tDescrip.setColumns(20);
+        tDescrip.setRows(5);
+        jScrollPane1.setViewportView(tDescrip);
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
         btnNuevo.setBorder(null);
         btnNuevo.setBorderPainted(false);
         btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit24.png"))); // NOI18N
         btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/delete.png"))); // NOI18N
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -96,9 +107,9 @@ public class Puestos extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jLabel5.setText("Salario");
 
-        tSueldo.addActionListener(new java.awt.event.ActionListener() {
+        tSalario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tSueldoActionPerformed(evt);
+                tSalarioActionPerformed(evt);
             }
         });
 
@@ -127,8 +138,8 @@ public class Puestos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ComboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(tIdPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,11 +178,11 @@ public class Puestos extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(ComboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
-                    .addComponent(tSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -194,15 +205,57 @@ public class Puestos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String sql = " ";
+        FrameDBManager f = new FrameDBManager();
+        if(!edit){
+            try{
+                sql = "call  set_puesto('"+this.tNombrePuesto.getText()+"', '"
+             + this.comboDepto.getItemAt(this.comboDepto.getSelectedIndex())+ "','"
+                + this.tDescrip.getText() + "'," + this.tSalario.getText() + ")";
+                System.out.println(sql);
+            }catch(Exception e){
+                System.out.println("Error: " + e);
+            }
+            f.FramepushDB(sql);
+        }else{
+            try{
+                sql = "UPDATE tbl_puesto SET NOMBRE = '"+this.tNombrePuesto.getText()
+                  +"', DEPARTAMENTO = '"+ this.comboDepto.getItemAt(this.comboDepto.getSelectedIndex())
+                  + "', DESCRIPCION = '"+ this.tDescrip.getText() + "', SALARIOBASE = " + this.tSalario.getText() 
+                  + " WHERE IDPUESTO = " + this.tIdPuesto.getText() + " ;";
+                System.out.println(sql);
+            }catch(Exception e){
+                System.out.println("Error: " + e);
+            }
+            f.FramepushDB(sql);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void tSueldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSueldoActionPerformed
+    private void tSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSalarioActionPerformed
         //
-    }//GEN-LAST:event_tSueldoActionPerformed
+    }//GEN-LAST:event_tSalarioActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        String sql = "call get_nvcod_puesto()";
+        FrameDBManager f = new FrameDBManager();
+        String correlativo = f.getConsultarDato(sql);
+        System.out.println(correlativo);
+        
+        this.tIdPuesto.setText(correlativo);
+        this.tSalario.setText("");
+        this.tDescrip.setText("");
+        this.tNombrePuesto.setText("");
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here
+        edit = true;
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,13 +292,13 @@ public class Puestos extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox ComboDepartamento;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnMostrarTabla;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox comboDepto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -253,9 +306,9 @@ public class Puestos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea tDescrip;
     private javax.swing.JTextField tIdPuesto;
     private javax.swing.JTextField tNombrePuesto;
-    private javax.swing.JTextField tSueldo;
+    private javax.swing.JTextField tSalario;
     // End of variables declaration//GEN-END:variables
 }

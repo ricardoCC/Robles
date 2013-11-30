@@ -1,7 +1,9 @@
 package sic;
 
+import DBAdmon.FrameDBManager;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -9,6 +11,14 @@ import javax.swing.table.TableColumn;
 public class Diario extends javax.swing.JFrame {
     DefaultTableModel modelo;
     TableColumn columna;
+    
+    void limpiar(){
+        this.tDetalleCuenta.setText(null);
+        this.tFecha.setText(null);
+        this.tNCuenta.setText("");
+        this.tNPartida.setText("");
+        this.tValor.setText("");
+    }
 
  
     public Diario() {
@@ -154,6 +164,11 @@ public class Diario extends javax.swing.JFrame {
         btnNuevo.setBorder(null);
         btnNuevo.setBorderPainted(false);
         btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar16.png"))); // NOI18N
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -281,8 +296,64 @@ public class Diario extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        if(comprobar()){
+            DefaultTableModel model = (DefaultTableModel)this.tblDiario.getModel();
+            int filas = this.tblDiario.getRowCount();
+            filas = filas-1;
+            
+            
+            FrameDBManager f = new FrameDBManager();
+            String sql = "call get_cod_partida";
+            String idPartida = f.getConsultarDato(sql);
+            
+            for (int i = 0; i <= filas; i++) {
+                double cargo = Double.parseDouble(model.getValueAt(i, 2).toString());
+                double abono = Double.parseDouble(model.getValueAt(i, 3).toString());
+                System.out.println("cargo: "+ cargo + " abono: "+ abono);
+                if(cargo > 0.0){
+                    sql = "call set_descripcion(" + idPartida + ",'"
+                    +model.getValueAt(0, i) + "', -"+ cargo+");";
+                    f.FramepushDB(sql);
+                }else{
+                    sql = "call set_descripcion(" + idPartida + ",'"
+                    +model.getValueAt(0, i) + "',"+ abono+");";
+                    f.FramepushDB(sql);
+                }
+            }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private Boolean comprobar(){
+        
+        double deudor = 0.0, acreedor = 0.0, valor;
+       
+        try {
+            int filas = this.tblDiario.getRowCount();
+            filas = filas -1;
+
+            for (int i = 0; i <= filas; i++) {
+                valor = Double.parseDouble(this.tblDiario.getValueAt(i, 2).toString());
+                deudor = deudor + valor;
+                //System.out.println("deudor: "+ deudor);
+
+                valor = Double.parseDouble(this.tblDiario.getValueAt(i, 3).toString());
+                acreedor = acreedor + valor;
+                //System.out.println("acreedor: "+ acreedor);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
+        if (deudor == acreedor){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(rootPane,"No se cumple partida doble");
+            return false;
+        }
+        
+    }
+    
     private void tblDiarioAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_tblDiarioAncestorResized
         // TODO add your handling code here:
     }//GEN-LAST:event_tblDiarioAncestorResized
@@ -320,6 +391,24 @@ public class Diario extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        if(this.tFecha.getText().compareTo("") == 0 && this.jTextArea1.getText().compareTo("") == 0){
+            JOptionPane.showMessageDialog(rootPane, "Para generar una nueva partida necesita completar "
+                    + "los campos fecha y concepto");
+        }else{
+            String sql = "call set_partida("+ this.tFecha.getText()+ ", '"+ this.jTextArea1.getText()+"');";
+            FrameDBManager f = new FrameDBManager();
+            f.FramepushDB(sql);
+
+            sql = "call get_cod_partida";
+            String correlativo = f.getConsultarDato(sql);
+            System.out.println(correlativo);
+
+            this.tNPartida.setText(correlativo);
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
